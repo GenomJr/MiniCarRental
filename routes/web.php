@@ -11,6 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('/','PageController@index');
+
+Route::get('/user','PageController@user');
+Route::get('/agent','PageController@agent');
