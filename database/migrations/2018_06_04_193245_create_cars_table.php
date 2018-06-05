@@ -19,7 +19,7 @@ class CreateCarsTable extends Migration
             $table->string('brand',191);
             $table->string('color',191);
             $table->string('agency',191);
-            $table->binary('isava');
+            $table->boolean('isava');
             $table->dateTime('rent_start');
             $table->dateTime('rent_end');
             $table->timestamps();

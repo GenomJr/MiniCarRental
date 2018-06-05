@@ -25,9 +25,9 @@
             <ul class="nav navbar-nav">
             
               <li><a href="/about">About</a></li>
-              <li><a href="/about">View Users rentals</a></li>
-              <li><a href="/about">View a Car users</a></li>
-              <li><a href="/about">Add a Car</a></li>
+              <li><a href="/users">View Users rentals</a></li>
+              <li><a href="/Car">View a Car users</a></li>
+              <li><a href="/Car/create">Add a Car</a></li>
             </ul>
 
             <!-- Right Side Of Navbar -->

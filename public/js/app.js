@@ -13874,7 +13874,6 @@ module.exports = __webpack_require__(43);
 /* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -13900,7 +13899,6 @@ var app = new Vue({
 /***/ }),
 /* 13 */
 /***/ (function(module, exports, __webpack_require__) {
-
 
 window._ = __webpack_require__(14);
 window.Popper = __webpack_require__(3).default;
@@ -47381,7 +47379,7 @@ if (false) {
 /* 43 */
 /***/ (function(module, exports) {
 
-throw new Error("Module build failed: ModuleBuildError: Module build failed: \r\nundefined\r\n                                       ^\r\n      Incompatible units: 'rem' and 'px'.\r\n      in C:\\xampp\\htdocs\\CarRental\\MiniCarRental\\node_modules\\bootstrap\\scss\\_variables.scss (line 428, column 41)\n    at runLoaders (C:\\xampp\\htdocs\\CarRental\\MiniCarRental\\node_modules\\webpack\\lib\\NormalModule.js:195:19)\n    at C:\\xampp\\htdocs\\CarRental\\MiniCarRental\\node_modules\\loader-runner\\lib\\LoaderRunner.js:364:11\n    at C:\\xampp\\htdocs\\CarRental\\MiniCarRental\\node_modules\\loader-runner\\lib\\LoaderRunner.js:230:18\n    at context.callback (C:\\xampp\\htdocs\\CarRental\\MiniCarRental\\node_modules\\loader-runner\\lib\\LoaderRunner.js:111:13)\n    at Object.asyncSassJobQueue.push [as callback] (C:\\xampp\\htdocs\\CarRental\\MiniCarRental\\node_modules\\sass-loader\\lib\\loader.js:55:13)\n    at Object.done [as callback] (C:\\xampp\\htdocs\\CarRental\\MiniCarRental\\node_modules\\neo-async\\async.js:7974:18)\n    at options.error (C:\\xampp\\htdocs\\CarRental\\MiniCarRental\\node_modules\\node-sass\\lib\\index.js:294:32)");
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);
