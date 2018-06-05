@@ -8,7 +8,9 @@ class PageController extends Controller
 {
     public function index(){
 
-        return view('welcome');
+      $title = 'Welcome To Car Rental Service!';
+    
+      return view('pages.index')->with('title', $title);
       }
       public function user(){
       $user = 'test';

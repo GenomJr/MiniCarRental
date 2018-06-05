@@ -16,3 +16,8 @@ Route::get('/','PageController@index');
 
 Route::get('/user','PageController@user');
 Route::get('/agent','PageController@agent');
+
+Auth::routes();
+
+Route::get('/dashboard', 'DashboardController@index');
+Route::get('/home', 'HomeController@index');
