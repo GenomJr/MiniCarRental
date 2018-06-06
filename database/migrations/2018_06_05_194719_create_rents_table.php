@@ -17,6 +17,7 @@ class CreateRentsTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->integer('car_id');
+            $table->boolean('is_user_delete_history')->default(true);
             $table->dateTime('rent_start');
             $table->dateTime('rent_end');
             $table->timestamps();

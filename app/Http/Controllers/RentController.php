@@ -43,6 +43,7 @@ class RentController extends Controller
                 ->join('cars', 'rents.car_id', '=', 'cars.id')
                 ->select('cars.*')
                 ->where('rents.user_id', '=',  $id)
+                ->where('rents.is_user_delete_history', '=',  true)
                 ->paginate(5);
     
         return view('rents.user_cars')->with('cars', $cars);
@@ -199,8 +200,8 @@ class RentController extends Controller
             return redirect('/Rent')->with('error', 'Unauthorized Page');
         }
 
-        
-        $rent->delete();
+        $rent->is_user_delete_history = false;
+        $rent->save();
         return redirect('/Rent')->with('success', 'Car Removed');
     }
 }
