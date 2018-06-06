@@ -10,6 +10,7 @@
                     <div class="col-md-8 col-sm-8">
                         <h3><a href="/Rent/{{$car->id}}">{{$car->brand}} {{$car->model}}</a></h3>
                         <h6> The Car color is {{$car->color}} </h6>
+                        <h6>Car agent :{{$car->agency_name}}</h6>
                         <small>Written on {{$car->created_at}} 
                             
                             @if($car->isava ==1)
