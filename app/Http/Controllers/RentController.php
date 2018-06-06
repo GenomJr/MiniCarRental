@@ -28,16 +28,22 @@ class RentController extends Controller
      */
     public function index()
     {
+        if(auth()->user() == null){
+            return redirect('/')->with('error', 'Unauthorized Page');
+
+        }
         if(auth()->user()->is_agent ==1){
             return redirect('/')->with('error', 'Unauthorized Page');
         }
+
+    
 
         $id = auth()->user()->id;
         $cars =  DB::table('rents')
                 ->join('cars', 'rents.car_id', '=', 'cars.id')
                 ->select('cars.*')
                 ->where('rents.user_id', '=',  $id)
-                ->get();
+                ->paginate(5);
     
         return view('rents.user_cars')->with('cars', $cars);
     }
@@ -61,6 +67,10 @@ class RentController extends Controller
      */
     public function store(Request $request)
     {
+        if(auth()->user() == null){
+            return redirect('/')->with('error', 'Unauthorized Page');
+
+        }
         if(auth()->user()->is_agent ==1){
             return redirect('/')->with('error', 'Unauthorized Page');
         }
@@ -171,6 +181,10 @@ class RentController extends Controller
      */
     public function destroy($id)
     {
+        if(auth()->user() == null){
+            return redirect('/')->with('error', 'Unauthorized Page');
+
+        }
         if(auth()->user()->is_agent ==1){
             return redirect('/')->with('error', 'Unauthorized Page');
         }
