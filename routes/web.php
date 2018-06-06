@@ -11,6 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('/','PageController@index');
+
+Route::get('/about','PageController@about');
+
+
+Auth::routes();
+Route::resource('Car', 'CarsController');
+Route::resource('Rent', 'RentController');
+Route::get('/users', 'CarsController@all_users');
+Route::get('/user/{id}', 'CarsController@user_all_cars');
+Route::get('/home', 'HomeController@index');
