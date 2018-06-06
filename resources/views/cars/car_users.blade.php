@@ -69,11 +69,18 @@
             {{Form::selectRange('rent_end_month',1, 12, '', ['class' => 'form-control', 'placeholder' => 'month'])}}
             {{Form::label('rent_end_day', 'Rent_end_day')}}
             {{Form::selectRange('rent_end_day',1, 30, '', ['class' => 'form-control', 'placeholder' => 'day'])}}
-       </div>
+            {{Form::label('rent_year', 'Rent_year')}}
+            {{Form::selectRange('rent_year',2018, 2050, '', ['class' => 'form-control', 'placeholder' => 'year'])}}
+              
+        </div>
         
         {{Form::hidden('car_id', $car->id, ['class' => 'form-control'])}}
         {{Form::submit('Rent', ['class'=>'btn btn-primary'])}}
         {!! Form::close() !!}
+          <br><br>
+          <br><br>
+          <br><br>
+          <br><br>
         @endif
     @endif
 @endsection

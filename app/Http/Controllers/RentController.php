@@ -57,26 +57,61 @@ class RentController extends Controller
      */
     public function store(Request $request)
     {
+         $rent_start_month=$request->input('rent_start_month');
+         $rent_start_day=$request->input('rent_start_day');
         $this->validate($request, [
             'rent_start_month' => 'required',
-            'rent_end_month' => 'required',
+            'rent_end_month' => 'required|gte:'.$rent_start_month,
             'rent_start_day' => 'required',
-            'rent_end_day' => 'required'
-        ]);
+            'rent_end_day' => 'required|gte:'.$rent_start_day
+        ],$messages = [ 'gte' => 'The End rent date must be greater or equal the Start rent date.',
+        ]
+        );
 
         // Create Rent
+        $is_ava_rent_case1 =  Rent::where('car_id',$request->input('car_id'))
+                    ->where('rent_start','>=',$request->input('rent_year').'-'.$request->input('rent_start_month')
+                    .'-'.$request->input('rent_start_day'))
+                    ->where('rent_start','<=',$request->input('rent_year') .'-'.$request->input('rent_end_month')
+                    .'-'.$request->input('rent_end_day'))
+                    ->first();
+
+
+            $is_ava_rent_case2 =  Rent::where('car_id',$request->input('car_id'))
+            ->where('rent_start','>=',$request->input('rent_year').'-'.$request->input('rent_start_month')
+            .'-'.$request->input('rent_start_day'))
+                    ->where('rent_start','<=',$request->input('rent_year') .'-'.$request->input('rent_end_month')
+                .'-'.$request->input('rent_end_day'))
+                    ->first();
+
+              $is_ava_rent_case3 =  Rent::where('car_id',$request->input('car_id'))
+              ->where('rent_start','<=',$request->input('rent_year').'-'.$request->input('rent_start_month')
+              .'-'.$request->input('rent_start_day'))
+              ->where('rent_start','<=',$request->input('rent_year') .'-'.$request->input('rent_end_month')
+              .'-'.$request->input('rent_end_day'))
+              ->where('rent_end','>=',$request->input('rent_year') .'-'.$request->input('rent_end_month')
+              .'-'.$request->input('rent_end_day'))
+              ->first();
+
+
+              
         $rent = new Rent;
         $rent->user_id =  auth()->user()->id;
         $rent->car_id = $request->input('car_id');
-        $rent->rent_start = '2020-'.$request->input('rent_start_month')
+        $rent->rent_start = $request->input('rent_year').'-'.$request->input('rent_start_month')
         .'-'.$request->input('rent_start_day');
         
-        $rent->rent_end = '2025-'.$request->input('rent_end_month')
+        $rent->rent_end =$request->input('rent_year') .'-'.$request->input('rent_end_month')
         .'-'.$request->input('rent_end_day');
       
-        $rent->save();
+        
+        if($is_ava_rent_case1.$is_ava_rent_case2.$is_ava_rent_case3 ==""){
+            $rent->save();
+            return redirect('/Car'.'/'.$request->input('car_id'))->with('success', 'Car Rented');
+        }
+        return redirect('/Car'.'/'.$request->input('car_id'))->with('error', 'Car not available at this period');
 
-        return redirect('/Rent')->with('success', 'Car Rented');
+  
     }
 
     /**
