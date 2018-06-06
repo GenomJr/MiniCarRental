@@ -27,6 +27,10 @@ class CarsController extends Controller
      */
     public function index()
     {
+        if(auth()->user() == null){
+            return redirect('/')->with('error', 'Unauthorized Page');
+
+        }
        if(auth()->user()->is_agent ==1){
         $id = auth()->user()->id;
         $cars =  Car::where('agency', $id) 
@@ -49,6 +53,10 @@ class CarsController extends Controller
      */
     public function create()
     {
+        if(auth()->user() == null){
+            return redirect('/')->with('error', 'Unauthorized Page');
+
+        }
         if(auth()->user()->is_agent ==0){
             return redirect('/')->with('error', 'Unauthorized Page');
         }
@@ -56,6 +64,10 @@ class CarsController extends Controller
     }
     public function all_users()
     {
+        if(auth()->user() == null){
+            return redirect('/')->with('error', 'Unauthorized Page');
+
+        }
         if(auth()->user()->is_agent ==0){
             return redirect('/')->with('error', 'Unauthorized Page');
         }
@@ -66,7 +78,10 @@ class CarsController extends Controller
     }
 
     public function user_all_cars($id){
+        if(auth()->user() == null){
+            return redirect('/')->with('error', 'Unauthorized Page');
 
+        }
         $cars =  DB::table('rents')
                 ->join('cars', 'rents.car_id', '=', 'cars.id')
                 ->select('cars.*')
@@ -85,6 +100,10 @@ class CarsController extends Controller
      */
     public function store(Request $request)
     {
+        if(auth()->user() == null){
+            return redirect('/')->with('error', 'Unauthorized Page');
+
+        }
         if(auth()->user()->is_agent ==0){
             return redirect('/')->with('error', 'Unauthorized Page');
         }
@@ -120,6 +139,10 @@ class CarsController extends Controller
      */
     public function show($id)
     {
+        if(auth()->user() == null){
+            return redirect('/')->with('error', 'Unauthorized Page');
+
+        }
         $users =  DB::table('rents')
         ->join('users', 'rents.user_id', '=', 'users.id')
         ->select('users.*','rents.*')
@@ -143,6 +166,10 @@ class CarsController extends Controller
      */
     public function edit($id)
     {
+        if(auth()->user() == null){
+            return redirect('/')->with('error', 'Unauthorized Page');
+
+        }
         if(auth()->user()->is_agent ==0){
             return redirect('/')->with('error', 'Unauthorized Page');
         }
@@ -165,6 +192,10 @@ class CarsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if(auth()->user() == null){
+            return redirect('/')->with('error', 'Unauthorized Page');
+
+        }
         if(auth()->user()->is_agent ==0){
             return redirect('/')->with('error', 'Unauthorized Page');
         }
@@ -197,6 +228,10 @@ class CarsController extends Controller
      */
     public function destroy($id)
     {
+        if(auth()->user() == null){
+            return redirect('/')->with('error', 'Unauthorized Page');
+
+        }
         if(auth()->user()->is_agent ==0){
             return redirect('/')->with('error', 'Unauthorized Page');
         }

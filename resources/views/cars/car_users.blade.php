@@ -4,7 +4,7 @@
     <a href="/Car" class="btn btn-default">Go Back</a>
     <h1>{{$car->brand}} {{$car->model}}</h1>
     <h6>Car agent :{{$car->agency_name}}</h6>
-     
+    <h6> The Car color is {{$car->color}} </h6>
      <small>Written on {{$car->created_at}} 
              
         <br><br>

@@ -28,16 +28,23 @@ class RentController extends Controller
      */
     public function index()
     {
+        if(auth()->user() == null){
+            return redirect('/')->with('error', 'Unauthorized Page');
+
+        }
         if(auth()->user()->is_agent ==1){
             return redirect('/')->with('error', 'Unauthorized Page');
         }
+
+    
 
         $id = auth()->user()->id;
         $cars =  DB::table('rents')
                 ->join('cars', 'rents.car_id', '=', 'cars.id')
                 ->select('cars.*')
                 ->where('rents.user_id', '=',  $id)
-                ->get();
+                ->where('rents.is_user_delete_history', '=',  true)
+                ->paginate(5);
     
         return view('rents.user_cars')->with('cars', $cars);
     }
@@ -61,12 +68,19 @@ class RentController extends Controller
      */
     public function store(Request $request)
     {
+        if(auth()->user() == null){
+            return redirect('/')->with('error', 'Unauthorized Page');
+
+        }
         if(auth()->user()->is_agent ==1){
             return redirect('/')->with('error', 'Unauthorized Page');
         }
-
+        $rent_end_month=$request->input('rent_end_month');
          $rent_start_month=$request->input('rent_start_month');
          $rent_start_day=$request->input('rent_start_day');
+         if($rent_start_month != $rent_end_month){
+            $rent_start_day=0;
+         }
         $this->validate($request, [
             'rent_start_month' => 'required',
             'rent_end_month' => 'required|gte:'.$rent_start_month,
@@ -171,6 +185,10 @@ class RentController extends Controller
      */
     public function destroy($id)
     {
+        if(auth()->user() == null){
+            return redirect('/')->with('error', 'Unauthorized Page');
+
+        }
         if(auth()->user()->is_agent ==1){
             return redirect('/')->with('error', 'Unauthorized Page');
         }
@@ -185,8 +203,8 @@ class RentController extends Controller
             return redirect('/Rent')->with('error', 'Unauthorized Page');
         }
 
-        
-        $rent->delete();
+        $rent->is_user_delete_history = false;
+        $rent->save();
         return redirect('/Rent')->with('success', 'Car Removed');
     }
 }
