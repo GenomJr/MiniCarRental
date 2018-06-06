@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Car;
+use App\User;
 use DB;
 class CarsController extends Controller
 {
@@ -50,6 +51,25 @@ class CarsController extends Controller
     {
         return view('cars.add_car');
     }
+    public function all_users()
+    {
+        $users = User::where('is_agent', 0)->orderBy('created_at','desc')
+        ->paginate(5);
+        return view ('cars.all_users')->with('users', $users);
+  
+    }
+
+    public function user_all_cars($id){
+
+        $cars =  DB::table('rents')
+                ->join('cars', 'rents.car_id', '=', 'cars.id')
+                ->select('cars.*')
+                ->where('rents.user_id', '=',  $id)
+               ->paginate(5);
+    
+        return view('cars.user_cars')->with('cars', $cars);
+
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -89,8 +109,19 @@ class CarsController extends Controller
      */
     public function show($id)
     {
+        $users =  DB::table('rents')
+        ->join('users', 'rents.user_id', '=', 'users.id')
+        ->select('users.*')
+        ->where('rents.car_id', '=',  $id)
+       ->paginate(5);
+
         $car = Car::find($id);
-        return view('cars.car_users')->with('car', $car);
+
+        $data = array(
+            'car' =>  $car,
+            'users' => $users
+        );
+        return view('cars.car_users')->with($data);
     }
 
     /**
@@ -101,6 +132,7 @@ class CarsController extends Controller
      */
     public function edit($id)
     {
+       
         $car = Car::find($id);
 
         // Check for correct user

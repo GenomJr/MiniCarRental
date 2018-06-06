@@ -48,11 +48,7 @@ class RentController extends Controller
         //
     }
 
-    public function all_users()
-    {
-        
-    }
-
+   
     /**
      * Store a newly created resource in storage.
      *
@@ -61,14 +57,23 @@ class RentController extends Controller
      */
     public function store(Request $request)
     {
-       
-        // Create car
+        $this->validate($request, [
+            'rent_start_month' => 'required',
+            'rent_end_month' => 'required',
+            'rent_start_day' => 'required',
+            'rent_end_day' => 'required'
+        ]);
+
+        // Create Rent
         $rent = new Rent;
         $rent->user_id =  auth()->user()->id;
         $rent->car_id = $request->input('car_id');
-        $rent->rent_start =  $request->input('rent_start');
-        $rent->rent_end =  $request->input('rent_end');
-       
+        $rent->rent_start = '2020-'.$request->input('rent_start_month')
+        .'-'.$request->input('rent_start_day');
+        
+        $rent->rent_end = '2025-'.$request->input('rent_end_month')
+        .'-'.$request->input('rent_end_day');
+      
         $rent->save();
 
         return redirect('/Rent')->with('success', 'Car Rented');

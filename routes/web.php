@@ -20,5 +20,6 @@ Route::get('/agent','PageController@agent');
 Auth::routes();
 Route::resource('Car', 'CarsController');
 Route::resource('Rent', 'RentController');
-Route::get('/users', 'RentController@all_users');
+Route::get('/users', 'CarsController@all_users');
+Route::get('/user/{id}', 'CarsController@user_all_cars');
 Route::get('/home', 'HomeController@index');
