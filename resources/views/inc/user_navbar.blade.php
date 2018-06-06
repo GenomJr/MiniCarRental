@@ -24,9 +24,10 @@
 
             <ul class="nav navbar-nav">
             
-              <li><a href="/about">About</a></li>
+              
               <li><a href="/Car">Rent a Car</a></li>
               <li><a href="/Rent">My History</a></li>
+              <li><a href="/about">About</a></li>
             
             </ul>
 

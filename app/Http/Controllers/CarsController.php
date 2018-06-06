@@ -49,10 +49,16 @@ class CarsController extends Controller
      */
     public function create()
     {
+        if(auth()->user()->is_agent ==0){
+            return redirect('/')->with('error', 'Unauthorized Page');
+        }
         return view('cars.add_car');
     }
     public function all_users()
     {
+        if(auth()->user()->is_agent ==0){
+            return redirect('/')->with('error', 'Unauthorized Page');
+        }
         $users = User::where('is_agent', 0)->orderBy('created_at','desc')
         ->paginate(5);
         return view ('cars.all_users')->with('users', $users);
@@ -79,6 +85,10 @@ class CarsController extends Controller
      */
     public function store(Request $request)
     {
+        if(auth()->user()->is_agent ==0){
+            return redirect('/')->with('error', 'Unauthorized Page');
+        }
+
         $this->validate($request, [
             'model' => 'required',
             'brand' => 'required',
@@ -92,6 +102,7 @@ class CarsController extends Controller
         $car->color = $request->input('color');
         $car->isava = 1;
         $car->rent_start = '1970-01-01';
+        $car->agency_name = auth()->user()->name;
         $car->rent_end = '2020-01-01';
         $car->agency = auth()->user()->id;
        
@@ -111,7 +122,7 @@ class CarsController extends Controller
     {
         $users =  DB::table('rents')
         ->join('users', 'rents.user_id', '=', 'users.id')
-        ->select('users.*')
+        ->select('users.*','rents.*')
         ->where('rents.car_id', '=',  $id)
        ->paginate(5);
 
@@ -132,7 +143,9 @@ class CarsController extends Controller
      */
     public function edit($id)
     {
-       
+        if(auth()->user()->is_agent ==0){
+            return redirect('/')->with('error', 'Unauthorized Page');
+        }
         $car = Car::find($id);
 
         // Check for correct user
@@ -152,6 +165,9 @@ class CarsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if(auth()->user()->is_agent ==0){
+            return redirect('/')->with('error', 'Unauthorized Page');
+        }
         $this->validate($request, [
             'model' => 'required',
             'brand' => 'required',
@@ -181,6 +197,9 @@ class CarsController extends Controller
      */
     public function destroy($id)
     {
+        if(auth()->user()->is_agent ==0){
+            return redirect('/')->with('error', 'Unauthorized Page');
+        }
         $car = Car::find($id);
 
         // Check for correct user

@@ -14,8 +14,8 @@
 
 Route::get('/','PageController@index');
 
-Route::get('/user','PageController@user');
-Route::get('/agent','PageController@agent');
+Route::get('/about','PageController@about');
+
 
 Auth::routes();
 Route::resource('Car', 'CarsController');

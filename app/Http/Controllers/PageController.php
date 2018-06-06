@@ -12,5 +12,11 @@ class PageController extends Controller
     
       return view('pages.index')->with('title', $title);
       }
+
+
+      public function about(){
+      
+        return view('pages.about');
+        }
     
 }

@@ -25,7 +25,7 @@
                 </div>
             </div>
         @endforeach
-       
+        {{$cars->links()}}
     @else
         <p>No history found</p>
     @endif

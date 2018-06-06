@@ -28,6 +28,10 @@ class RentController extends Controller
      */
     public function index()
     {
+        if(auth()->user()->is_agent ==1){
+            return redirect('/')->with('error', 'Unauthorized Page');
+        }
+
         $id = auth()->user()->id;
         $cars =  DB::table('rents')
                 ->join('cars', 'rents.car_id', '=', 'cars.id')
@@ -57,6 +61,10 @@ class RentController extends Controller
      */
     public function store(Request $request)
     {
+        if(auth()->user()->is_agent ==1){
+            return redirect('/')->with('error', 'Unauthorized Page');
+        }
+
          $rent_start_month=$request->input('rent_start_month');
          $rent_start_day=$request->input('rent_start_day');
         $this->validate($request, [
@@ -163,6 +171,9 @@ class RentController extends Controller
      */
     public function destroy($id)
     {
+        if(auth()->user()->is_agent ==1){
+            return redirect('/')->with('error', 'Unauthorized Page');
+        }
         $user_id = auth()->user()->id;
         $rent = Rent::where('car_id', $id) 
                 ->where( 'user_id','=', $user_id)

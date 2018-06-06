@@ -3,10 +3,11 @@
 @section('content')
     <a href="/Car" class="btn btn-default">Go Back</a>
     <h1>{{$car->brand}} {{$car->model}}</h1>
-     <br><br>
+    <h6>Car agent :{{$car->agency_name}}</h6>
+     
      <small>Written on {{$car->created_at}} 
              
-        
+        <br><br>
 
 
         <h1>All Renters Users</h1>
@@ -19,6 +20,8 @@
                         <h3><a href="/user/{{$user->id}}">{{$user->name}} </a></h3>
                         <h5>User mobile : {{$user->mobile}}</h5>
                         <h5>User e-mail : {{$user->email}}</h5>
+                        <h6>Rent start date: {{$user->rent_start}}</h6>
+                        <h6>Rent end date: {{$user->rent_end}}</h6>
                         <small>Joined at {{$user->created_at}} </small>
                     </div>
                 </div>
