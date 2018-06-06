@@ -3,6 +3,7 @@
 @section('content')
     <a href="/Car" class="btn btn-default">Go Back</a>
     <h1>{{$car->brand}} {{$car->model}}</h1>
+    <h6> The Car color is {{$car->color}} </h6>
      <br><br>
      <small>Written on {{$car->created_at}} 
                             

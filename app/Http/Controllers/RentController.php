@@ -75,9 +75,12 @@ class RentController extends Controller
         if(auth()->user()->is_agent ==1){
             return redirect('/')->with('error', 'Unauthorized Page');
         }
-
+        $rent_end_month=$request->input('rent_end_month');
          $rent_start_month=$request->input('rent_start_month');
          $rent_start_day=$request->input('rent_start_day');
+         if($rent_start_month != $rent_end_month){
+            $rent_start_day=0;
+         }
         $this->validate($request, [
             'rent_start_month' => 'required',
             'rent_end_month' => 'required|gte:'.$rent_start_month,
